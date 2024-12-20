@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { List, Switch } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { DARK_THEME_TYPE, themSlice } from '../../redux/themeStore/reducers';
 import { authSlice } from '../../redux/authStore/authReducers';
 import { AppView } from '../../components/Flex/Flex';
 import LanguageSelector from '../../components/LanguageSelector';
-
 
 const SettingsScreen = () => {
   const appDispatch = useDispatch();
@@ -30,7 +29,7 @@ const SettingsScreen = () => {
         },
         {
           text: 'yes',
-          onPress: () => authDispatch(authSlice.actions.userLoginLogOutAction())
+          onPress: () => authDispatch(authSlice.actions.userLoginLogOutAction()),
         },
       ],
       { cancelable: false },
@@ -40,9 +39,7 @@ const SettingsScreen = () => {
   return (
     <AppView>
       <View
-        style={{
-          flex: 1
-        }}>
+        style={styles.rootView}>
         <LanguageSelector />
         <List.Item
           onPress={() => {
@@ -66,6 +63,11 @@ const SettingsScreen = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  rootView: {
+    flex: 1,
+  },
+});
 
 export default SettingsScreen;
 

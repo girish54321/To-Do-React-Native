@@ -8,6 +8,8 @@ import { useTheme } from 'react-native-paper';
 import { useUserLogin } from '../../Network/Querys/useLoginMutaion';
 import { authSlice } from '../../redux/authStore/authReducers';
 import { ErrorRes } from '../../models/responseType/LoginRes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { APP_CONST } from '../../Config/Colors';
 
 export const defaultLoginScreenState = {
     email: '',
@@ -32,7 +34,8 @@ const useLoginScreenModal = () => {
             password: '123456',
         };
         mutate({ postData: postData }, {
-            onSuccess: (data) => {
+            onSuccess: async (data) => {
+                await AsyncStorage.setItem(APP_CONST.TOKENS, data.data.accessToken ?? '');
                 authDispatch(authSlice.actions.userLoginAction({
                     isLoading: false,
                     userLoggedIn: true,

@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import AppLoaderModal from '../../components/appLoaderModal/AppLoaderModal';
 import { Route } from '../../constants/Route';
 import { HomeScreenStack } from '../HomeStack/HomeStack';
-import { UsersListStack } from '../UsersListStack/UsersListStack';
 import { SettingScreenStack } from '../SettingScreenStack/SettingScreenStack';
 
 const Tab = createBottomTabNavigator();
@@ -81,4 +80,5 @@ export const AppBottomTab = () => {
             </Tab.Navigator>
         </>
     );
-}
+};
+

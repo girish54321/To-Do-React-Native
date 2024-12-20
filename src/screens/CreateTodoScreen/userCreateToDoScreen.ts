@@ -3,7 +3,7 @@ import {
     Alert,
 } from 'react-native';
 import { ErrorRes } from '../../models/responseType/LoginRes';
-import { useCreateToDMutation, useUpdatedateToDoMutation } from '../../Network/Querys/useCreateToDMutation';
+import { useCreateToDMutation, useUpdatedateToDoMutation } from '../../Network/Querys/useToDMutation';
 import { goBack } from '../../navigation/NavigationService';
 import { Todo } from '../../models/responseType/UserListResponse';
 
@@ -17,7 +17,6 @@ const useCreateToDo = (updateToDO?: Todo) => {
     const [todoData, setToDoData] = useState(updateToDO ?? defaultToDoState);
     const { mutate, isPending: isLoading } = useCreateToDMutation();
     const { mutate: updateMutate, isPending: updateLoading } = useUpdatedateToDoMutation();
-    console.log('todoData', todoData);
 
     const updateToDo = () => {
         updateMutate({

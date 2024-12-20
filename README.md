@@ -1,33 +1,39 @@
-# React Native TypeScript Starter with Flavors ❤️ now with Material 3
+# React Native Todo App
 
 ## Welcome
 
-Welcome to our React Native starter repo! This repo includes a variety of core features to help you get started building a top-quality mobile app.
+Welcome to the React Native Todo App! This is a simple, yet efficient, Todo application built with React Native for the front end and Node.js for the back end. It helps users manage their tasks with ease, offering features like task addition, deletion, and status tracking.
 
 
-## Flavor builds
+## Features
 
-Need to create different versions of your app for different markets or audiences? No problem! This starter repo includes support for flavor builds, so you can easily create unique versions of your app with their own branding, assets, and configurations.
+- Cross-Platform Support: Runs smoothly on both iOS and Android.
 
-## Redux with Axios
+- User-Friendly UI: Intuitive design for effortless task management.
 
-We've included both Redux and Axios to help you manage the state of your app and make HTTP requests in a consistent and efficient manner.
+- Real-Time Updates: Seamless synchronization with the backend.
 
-Get started building your dream app today with this powerful React Native starter repo!
+- Scalable Backend: Built with Node.js, ensuring performance and scalability.
 
+# Screenshots
 
 <img width="1604"  src="image/banner.png?raw=true">
 
-## Demo Test case 
-<img width="1604"  src="image/testcase.png?raw=true">
 
-## Installation
-
-[<img src="https://github.com/NeoApplications/Neo-Backup/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png?raw=true"
-    alt="Get it on GitHub"
-    height="80">](apk/app-prod-release.apk)
 
 ## Run Locally
+
+###  Getting Started
+
+Follow these steps to set up the application on your local machine.
+
+Prerequisites
+
+- Node.js installed.
+
+- React Native CLI set up.
+
+- A device or emulator to run the app.
 
 Clone the project
 
@@ -50,19 +56,19 @@ Install dependencies
 On Android DEV
 
 ```bash
-  yarn android_dev_debug
+  yarn installDevDebug
 ```
 
 On Android Staging
 
 ```bash
-  yarn android_staging_debug
+  yarn installProdDebug
 ```
 
 On Android PROD
 
 ```bash
-  yarn android_prod_debug
+  yarn installStagingDebug
 ```
 
 On iOS or use XCode
@@ -71,10 +77,16 @@ On iOS or use XCode
   cd ios && pod install && cd .. && yarn run ios11
 ```
 
+## Backend Setup
+
+The backend for this app is hosted in a separate repository. Follow the instructions in the backend repository to set it up.
+
+Repository link: Node.js Todo App Backend
+
 
 ## Tech Stack
 
-React, React native, Redux toolkit
+React, React native, Redux toolkit, React Query
 
 If you find my work useful, please consider supporting me by buying me a coffee!
 

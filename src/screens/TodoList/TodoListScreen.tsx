@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, GestureResponderEvent, RefreshControl, StyleSheet, View } from 'react-native';
 import { AppView } from '../../components/Flex/Flex';
 import { navigate } from '../../navigation/NavigationService';
@@ -9,10 +9,12 @@ import LoadingView from '../../components/loadingView';
 import { ActivityIndicator, FAB } from 'react-native-paper';
 import ErrorView from '../../components/errorView';
 import { TodoListItem } from '../../components/ListItem/TodoListItem';
-export const UsersToDoScreen = () => {
+export const UsersToDoScreen = ({ navigation }) => {
     const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useToDoList();
 
-
+    useEffect(() => {
+        navigation.setOptions({ title: 'My ToDo' });
+    },);
     if (isError) {
         //@ts-ignore
         let errorData = error?.response?.data as ErrorRes;

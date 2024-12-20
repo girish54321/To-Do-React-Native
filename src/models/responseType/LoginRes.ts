@@ -1,8 +1,8 @@
 
 export interface LoginRes {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
+    user?: User;
+    accessToken?: string;
+    refreshToken?: string;
 }
 
 export interface User {

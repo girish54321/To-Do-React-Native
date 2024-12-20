@@ -3,7 +3,7 @@ import { Todo } from '../../models/responseType/UserListResponse';
 import { Route } from '../../constants/Route';
 import { goBack, navigate } from '../../navigation/NavigationService';
 import { useRoute } from '@react-navigation/native';
-import { useGetToDoInFo, useUeleteToDoMutation } from '../../Network/Querys/useCreateToDMutation';
+import { useGetToDoInFo, useUeleteToDoMutation } from '../../Network/Querys/useToDMutation';
 import { Alert } from 'react-native';
 
 const useSelectedScreen = () => {
@@ -13,8 +13,7 @@ const useSelectedScreen = () => {
     const route = useRoute();
     const data: Todo = route?.params?.data;
     const { mutate: deleteToDo, isPending: isLoading } = useUeleteToDoMutation();
-    const { data: toDoInfo, isLoading: todoInfoLoading, error, refetch } = useGetToDoInFo(data);
-    // console.log('toDoInfo', ;
+    const { data: toDoInfo, isLoading: todoInfoLoading, error: getTodoErrpr, refetch } = useGetToDoInFo(data);
 
     const openMenu = () => setVisible(true);
 
@@ -57,7 +56,7 @@ const useSelectedScreen = () => {
         openDeleteModal,
         closeDeleteModal,
         refetch,
-        error,
+        error: getTodoErrpr,
         deleteModal,
     };
 };
