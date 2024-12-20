@@ -23,6 +23,7 @@ export const authSlice = createSlice({
     userLoginAction: (state, action: PayloadAction<AUTH_TYPE>) => {
       const jsonValue = JSON.stringify(action.payload);
       AsyncStorage.setItem(APP_CONST.USER_LOGIN, jsonValue);
+      AsyncStorage.setItem(APP_CONST.TOKENS, action.payload.loginRes?.accessToken ?? '');
       return { ...state, ...action.payload };
     },
     checkUserLoginAction: (state, action: PayloadAction<AUTH_TYPE | null>) => {

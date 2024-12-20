@@ -10,13 +10,14 @@ import { Todo } from '../../models/responseType/UserListResponse';
 export const defaultToDoState = {
     title: '',
     body: '',
-    status: 'pending',
+    state: 'pending',
 };
 
 const useCreateToDo = (updateToDO?: Todo) => {
     const [todoData, setToDoData] = useState(updateToDO ?? defaultToDoState);
     const { mutate, isPending: isLoading } = useCreateToDMutation();
     const { mutate: updateMutate, isPending: updateLoading } = useUpdatedateToDoMutation();
+    console.log('todoData', todoData);
 
     const updateToDo = () => {
         updateMutate({
@@ -39,7 +40,6 @@ const useCreateToDo = (updateToDO?: Todo) => {
         mutate({
             postData: {
                 ...todoData,
-                status: 'pending',
             },
         }, {
             onSuccess: () => {

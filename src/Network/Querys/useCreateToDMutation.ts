@@ -6,69 +6,87 @@ import { APISuccess } from '../../models/responseType/api.Success';
 import apiHeader from '../../utils/api-header';
 import { Todo } from '../../models/responseType/UserListResponse';
 import { UserToDoResponse } from '../../models/responseType/userToDoResponse';
+import { authSlice } from '../../redux/authStore/authReducers';
+import { useDispatch } from 'react-redux';
 
 
 const createToDo = async ({ postData }: { postData: any }) => {
-    return await axios.post<APISuccess>(`${getBaseUrl()}${create_todo_url}`, { ...postData }, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: apiHeader.headers.Authorization,
-        },
-    });
+    return await axios.post<APISuccess>(`${getBaseUrl()}${create_todo_url}`, { ...postData }, await apiHeader());
 };
 
 const updateToDo = async ({ postData }: { postData: Todo }) => {
-    return await axios.post<APISuccess>(`${getBaseUrl()}${update_todo_url}`, { ...postData }, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: apiHeader.headers.Authorization,
-        },
-    });
+    return await axios.post<APISuccess>(`${getBaseUrl()}${update_todo_url}`, { ...postData }, await apiHeader());
 };
 
 const deleteToDo = async ({ postData }: { postData: Todo }) => {
-    return await axios.delete<APISuccess>(`${getBaseUrl()}${delete_todo_url}/${postData?.toDoId}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: apiHeader.headers.Authorization,
-        },
-    });
+    return await axios.delete<APISuccess>(`${getBaseUrl()}${delete_todo_url}/${postData?.toDoId}`, await apiHeader());
 };
 
 const getToDoInfo = async ({ postData }: { postData: Todo }) => {
-    return await axios.get<UserToDoResponse>(`${getBaseUrl()}${get_todo}/${postData?.toDoId}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: apiHeader.headers.Authorization,
-        },
-    });
+    return await axios.get<UserToDoResponse>(`${getBaseUrl()}${get_todo}/${postData?.toDoId}`, await apiHeader());
 };
 
 const useCreateToDMutation = () => {
+    const dispatch = useDispatch();
     return useMutation({
         mutationFn: createToDo,
         mutationKey: [create_todo_url],
+        //@ts-ignore
+        throwOnError: (error) => {
+            //@ts-ignore
+            if (error.response?.status === 401) {
+                console.log('unauthorized');
+                dispatch(authSlice.actions.userLoginLogOutAction());
+            }
+        },
     });
 };
 
 const useUpdatedateToDoMutation = () => {
+    const dispatch = useDispatch();
     return useMutation({
         mutationFn: updateToDo,
         mutationKey: [update_todo_url],
+        //@ts-ignore
+        throwOnError: (error) => {
+            //@ts-ignore
+            if (error.response?.status === 401) {
+                console.log('unauthorized');
+                dispatch(authSlice.actions.userLoginLogOutAction());
+            }
+        },
     });
 };
 
 const useUeleteToDoMutation = () => {
+    const dispatch = useDispatch();
     return useMutation({
         mutationFn: deleteToDo,
         mutationKey: [delete_todo_url],
+        //@ts-ignore
+        throwOnError: (error) => {
+            //@ts-ignore
+            if (error.response?.status === 401) {
+                console.log('unauthorized');
+                dispatch(authSlice.actions.userLoginLogOutAction());
+            }
+        },
     });
 };
 
 const useGetToDoInFo = (postData: Todo) => {
+    const dispatch = useDispatch();
     return useQuery({
         queryKey: [get_todo],
         queryFn: () => getToDoInfo({ postData: postData }),
+        //@ts-ignore
+        throwOnError: (error) => {
+            //@ts-ignore
+            if (error.response?.status === 401) {
+                console.log('unauthorized');
+                dispatch(authSlice.actions.userLoginLogOutAction());
+            }
+        },
     });
 };
 

@@ -3,8 +3,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CustomNavigationBar } from '../../components/appAppBar/AppAppBar';
 import { Route } from '../../constants/Route';
-import { UsersScreen } from '../../screens/UsersScreen/UsersScreen';
-import { SelectedUserScreen } from '../../screens/UsersScreen/SelectedUser';
+import { UsersScreen } from '../../screens/TodoList/TodoListScreen';
+import { SelectedUserScreen } from '../../screens/TodoList/SelectedUser';
 
 const UserStack = createNativeStackNavigator();
 

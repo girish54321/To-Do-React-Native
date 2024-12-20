@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CustomNavigationBar } from '../../components/appAppBar/AppAppBar';
 import { Route } from '../../constants/Route';
-import { UsersToDoScreen } from '../../screens/UsersScreen/UsersScreen';
+import { UsersToDoScreen } from '../../screens/TodoList/TodoListScreen';
 import { CreateTodoScreen } from '../../screens/CreateTodoScreen/CreateTodoScreen';
 import SelectedToDoScreen from '../../screens/SelectedToDoScreen/SelectedToDoScreen';
 
