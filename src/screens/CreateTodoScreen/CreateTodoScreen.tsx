@@ -11,6 +11,7 @@ import SizedBox from '../../components/SizedBox';
 import useCreateToDo from './userCreateToDoScreen';
 import { Todo } from '../../models/responseType/UserListResponse';
 import { useRoute } from '@react-navigation/native';
+import ToDoStatusView from '../../components/todoStatusVIew/ToDoStatusView';
 
 export const CreateTodoScreen = ({ navigation }: {
     navigation: any
@@ -23,6 +24,7 @@ export const CreateTodoScreen = ({ navigation }: {
         onBodyChange,
         updateToDo,
         createToDo,
+        updateToDoStatus,
     } = useCreateToDo(data);
 
     useEffect(() => {
@@ -55,6 +57,9 @@ export const CreateTodoScreen = ({ navigation }: {
                 />
             </Card>
             <SizedBox size={16} />
+            <ToDoStatusView state={todoData.state} updateToDoStates={updateToDoStatus} />
+            <SizedBox size={16} />
+
             <Button
                 onPress={data ? updateToDo : createToDo}
                 mode="contained"

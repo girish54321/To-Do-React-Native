@@ -17,6 +17,7 @@ const useCreateToDo = (updateToDO?: Todo) => {
     const [todoData, setToDoData] = useState(updateToDO ?? defaultToDoState);
     const { mutate, isPending: isLoading } = useCreateToDMutation();
     const { mutate: updateMutate, isPending: updateLoading } = useUpdatedateToDoMutation();
+    console.log('updateToDO', updateToDO);
 
     const updateToDo = () => {
         updateMutate({
@@ -66,12 +67,20 @@ const useCreateToDo = (updateToDO?: Todo) => {
         });
     };
 
+    const updateToDoStatus = (status: string) => {
+        setToDoData({
+            ...todoData,
+            state: status,
+        });
+    };
+
     return {
         todoData,
         onTitleChange,
         onBodyChange,
         createToDo,
         loading: isLoading || updateLoading,
+        updateToDoStatus,
         updateToDo,
     };
 

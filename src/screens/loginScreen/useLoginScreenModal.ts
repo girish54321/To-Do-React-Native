@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTheme } from 'react-native-paper';
-import { useUserLogin } from '../../Network/Querys/useLoginMutaion';
+import { useSignUp, useUserLogin } from '../../Network/Querys/useLoginMutaion';
 import { authSlice } from '../../redux/authStore/authReducers';
 import { ErrorRes } from '../../models/responseType/LoginRes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +14,8 @@ import { APP_CONST } from '../../Config/Colors';
 export const defaultLoginScreenState = {
     email: '',
     password: '',
+    firstName: '',
+    lastName: '',
     secureTextEntry: true,
     isValidEmail: false,
     isValidPassword: false,
@@ -22,18 +24,17 @@ export const defaultLoginScreenState = {
 const useLoginScreenModal = () => {
     const paperTheme = useTheme();
     const [userData, setuserData] = useState(defaultLoginScreenState);
+    const [isSignUp, setIsSignUp] = useState(false);
 
     const nativeData = NativeModules.RNConfigModule;
 
     const authDispatch = useDispatch();
     const { mutate, isPending: isLoading } = useUserLogin();
+    const { mutate: createAccountFun, isPending: createAccountLoading } = useSignUp();
 
     const saveUserLogin = async () => {
-        let postData = {
-            email: 'girish12wwwwssww@gmail.com',
-            password: '123456',
-        };
-        mutate({ postData: postData }, {
+        const action = isSignUp ? createAccountFun : mutate;
+        action({ postData: userData }, {
             onSuccess: async (data) => {
                 await AsyncStorage.setItem(APP_CONST.TOKENS, data.data.accessToken ?? '');
                 authDispatch(authSlice.actions.userLoginAction({
@@ -58,6 +59,20 @@ const useLoginScreenModal = () => {
         });
     };
 
+    const onFirstNameChange = (val: string) => {
+        setuserData({
+            ...userData,
+            firstName: val,
+        });
+    };
+
+    const onLastNmaeChange = (val: string) => {
+        setuserData({
+            ...userData,
+            lastName: val,
+        });
+    };
+
     const textPasswordChange = (val: any) => {
         if (val.trim().length >= 8) {
             setuserData({
@@ -74,6 +89,10 @@ const useLoginScreenModal = () => {
         }
     };
 
+    const createAccount = () => {
+        setIsSignUp(!isSignUp);
+    };
+
     return {
         paperTheme,
         userData,
@@ -81,7 +100,11 @@ const useLoginScreenModal = () => {
         textEmailChange,
         textPasswordChange,
         nativeData,
-        isLoading,
+        createAccount,
+        isSignUp,
+        isLoading: isLoading ?? createAccountLoading,
+        onFirstNameChange,
+        onLastNmaeChange,
     };
 
 };

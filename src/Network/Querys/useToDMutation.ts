@@ -35,8 +35,8 @@ const useCreateToDMutation = () => {
         throwOnError: (error) => {
             //@ts-ignore
             if (error.response?.status === 401) {
-                console.log('unauthorized');
-                dispatch(authSlice.actions.userLoginLogOutAction());
+                console.log('1 unauthorized');
+                // dispatch( authSlice.actions.userLoginLogOutAction());
             }
         },
     });
@@ -51,8 +51,8 @@ const useUpdatedateToDoMutation = () => {
         throwOnError: (error) => {
             //@ts-ignore
             if (error.response?.status === 401) {
-                console.log('unauthorized');
-                dispatch(authSlice.actions.userLoginLogOutAction());
+                console.log('2 unauthorized');
+                // dispatch(authSlice.actions.userLoginLogOutAction()); 
             }
         },
     });
@@ -67,8 +67,8 @@ const useUeleteToDoMutation = () => {
         throwOnError: (error) => {
             //@ts-ignore
             if (error.response?.status === 401) {
-                console.log('unauthorized');
-                dispatch(authSlice.actions.userLoginLogOutAction());
+                console.log('3 unauthorized');
+                // dispatch(authSlice.actions.userLoginLogOutAction());
             }
         },
     });
@@ -77,6 +77,7 @@ const useUeleteToDoMutation = () => {
 const useGetToDoInFo = (postData: Todo) => {
     const dispatch = useDispatch();
     return useQuery({
+        enabled: false,
         queryKey: [get_todo],
         queryFn: () => getToDoInfo({ postData: postData }),
         //@ts-ignore
@@ -84,7 +85,7 @@ const useGetToDoInFo = (postData: Todo) => {
             //@ts-ignore
             if (error.response?.status === 401) {
                 console.log('unauthorized');
-                dispatch(authSlice.actions.userLoginLogOutAction());
+                // dispatch(authSlice.actions.userLoginLogOutAction());
             }
         },
     });

@@ -8,10 +8,11 @@ import useSelectedScreen from './useSelectedDoScreen';
 import LoadingView from '../../components/loadingView';
 import ErrorView from '../../components/errorView';
 import { DefaultAppBar } from '../../components/appAppBar/AppAppBar';
+import ToDoStatusView from '../../components/todoStatusVIew/ToDoStatusView';
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 const SelectedToDoScreen = ({ navigation }) => {
-    const { closeMenu, visible, openMenu, updateToDoScreen, data, openDeleteModal, isLoading, deleteToDoAction, deleteModal, closeDeleteModal, refetch,
+    const { closeMenu, visible, openMenu, updateToDoStates, updateToDoScreen, data, openDeleteModal, isLoading, deleteToDoAction, deleteModal, closeDeleteModal, refetch,
         error } = useSelectedScreen();
 
     if (error) {
@@ -38,7 +39,7 @@ const SelectedToDoScreen = ({ navigation }) => {
         <View style={styles.container}>
             <Appbar.Header>
                 <Appbar.BackAction onPress={navigation.goBack} />
-                <Appbar.Content title={data.title} />
+                <Appbar.Content title={data?.title} />
                 <Menu
                     visible={visible}
                     onDismiss={closeMenu}
@@ -66,6 +67,7 @@ const SelectedToDoScreen = ({ navigation }) => {
                             <Text variant="bodyMedium">{data?.body}</Text>
                         </Card.Content>
                     </Card>
+                    <ToDoStatusView state={data?.state} updateToDoStates={updateToDoStates} />
                 </AppView>
             </ScrollView>
             <Portal>

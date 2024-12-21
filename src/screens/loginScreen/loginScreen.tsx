@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import SizedBox from '../../components/SizedBox';
@@ -24,64 +25,99 @@ export const loginTetIds = {
 
 
 export const LoginScreen = () => {
-  const { paperTheme,
+  const {
     userData,
     saveUserLogin,
+    isSignUp,
     textEmailChange,
+    createAccount,
     textPasswordChange,
+    onFirstNameChange,
+    onLastNmaeChange,
     isLoading,
     nativeData } = useLoginScreenModal();
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles?.rootView}
-      testID={loginTetIds.rootView}>
-      <View style={styles.rootViewTwo} testID={loginTetIds.rootViewTwo} />
-      <View style={styles.loginView} testID={loginTetIds.loginView}>
-        <TouchableOpacity style={styles.envView} testID={loginTetIds.envView}>
-          <Text>Running {nativeData?.BUILD_ENV}</Text>
-          <Text>Your Base URL is {nativeData?.BASE_URL}</Text>
-        </TouchableOpacity>
-        <TextInput
-          style={{ backgroundColor: paperTheme.colors.background }}
-          label="Email"
-          autoCapitalize="none"
-          value={userData.email}
-          placeholder="Email"
-          onChangeText={textEmailChange}
-          testID={loginTetIds.emailInput}
-        />
-        <TextInput
-          style={{ backgroundColor: paperTheme.colors.background }}
-          secureTextEntry={userData.secureTextEntry}
-          label="Password"
-          placeholder="Password"
-          autoCapitalize="none"
-          value={userData.password}
-          onChangeText={textPasswordChange}
-          testID={loginTetIds.passwordInput}
-        />
-        <SizedBox size={16} />
-        {isLoading ? (
-          <Text testID={loginTetIds.loadingText}>Loading..</Text>
-        ) : (
-          <Button
-            mode="contained"
-            onPress={() => saveUserLogin()}
-            testID={loginTetIds.loginButton}>
-            Login
-          </Button>
-        )}
-      </View>
-      <View style={styles.flexOne} />
-    </KeyboardAvoidingView>
+    <SafeAreaView
+      style={styles?.rootView}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles?.rootView}
+        testID={loginTetIds.rootView}>
+        <View style={styles.rootViewTwo} testID={loginTetIds.rootViewTwo} />
+        <View style={styles.loginView} testID={loginTetIds.loginView}>
+          <TouchableOpacity testID={loginTetIds.envView}>
+            <Text>Running {nativeData?.BUILD_ENV}</Text>
+            <Text>Your Base URL is {nativeData?.BASE_URL}</Text>
+          </TouchableOpacity>
+          {isSignUp && <TextInput
+            style={styles.inputStyle}
+            label="First Name"
+            autoCapitalize="none"
+            mode="outlined"
+            value={userData.firstName}
+            placeholder="First Name"
+            onChangeText={onFirstNameChange}
+            testID={loginTetIds.emailInput}
+          />}
+          {isSignUp && <TextInput
+            style={styles.inputStyle}
+            label="Last Name"
+            autoCapitalize="none"
+            mode="outlined"
+            value={userData.lastName}
+            placeholder="Last Name"
+            onChangeText={onLastNmaeChange}
+            testID={loginTetIds.emailInput}
+          />}
+          <TextInput
+            style={styles.inputStyle}
+            label="Email"
+            autoCapitalize="none"
+            mode="outlined"
+            value={userData.email}
+            placeholder="Email"
+            onChangeText={textEmailChange}
+            testID={loginTetIds.emailInput}
+          />
+          <TextInput
+            style={styles.inputStyle}
+            secureTextEntry={userData.secureTextEntry}
+            label="Password"
+            placeholder="Password"
+            mode="outlined"
+            autoCapitalize="none"
+            value={userData.password}
+            onChangeText={textPasswordChange}
+            testID={loginTetIds.passwordInput}
+          />
+          <SizedBox size={16} />
+          {isLoading ? (
+            <Text testID={loginTetIds.loadingText}>Loading..</Text>
+          ) : (
+            <Button
+              mode="contained"
+              onPress={() => saveUserLogin()}
+              testID={loginTetIds.loginButton}>
+              Login
+            </Button>
+          )}
+        </View>
+        <View style={styles.flexOne} />
+        <Button onPress={createAccount}>
+          {isSignUp ? 'Have an accoun? Login in' : `Don't Have Account? Create One.`}
+        </Button>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   flexOne: {
     flex: 1,
+  },
+  inputStyle: {
+    marginTop: 12,
   },
   rootView: {
     flex: 1,
