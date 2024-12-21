@@ -81,7 +81,7 @@ On iOS or use XCode
 
 The backend for this app is hosted in a separate repository. Follow the instructions in the backend repository to set it up.
 
-Repository link: Node.js Todo App Backend
+Repository [ToDo App](https://github.com/girish54321/Todo_app-api): Node.js Todo App Backend
 
 
 ## Tech Stack
