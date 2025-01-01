@@ -9,6 +9,7 @@ import LoadingView from '../../components/loadingView';
 import ErrorView from '../../components/errorView';
 import { DefaultAppBar } from '../../components/appAppBar/AppAppBar';
 import ToDoStatusView from '../../components/todoStatusVIew/ToDoStatusView';
+import { serverUrl } from '../../constants/AppConstants';
 
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 const SelectedToDoScreen = ({ navigation }) => {
@@ -43,6 +44,7 @@ const SelectedToDoScreen = ({ navigation }) => {
                 <Menu
                     visible={visible}
                     onDismiss={closeMenu}
+                    statusBarHeight={120}
                     anchor={
                         <Appbar.Action icon={MORE_ICON} onPress={openMenu} />
                     }>
@@ -55,14 +57,17 @@ const SelectedToDoScreen = ({ navigation }) => {
                 </Menu>
             </Appbar.Header>
             <ScrollView
-                //  refreshing={isLoading}
                 refreshControl={
                     <RefreshControl refreshing={isLoading} onRefresh={refetch} />
                 }>
                 <AppView paddingRequired>
                     <Card style={styles.marginTopValue}>
-                        <Card.Cover source={{ uri: 'https://picsum.photos/500' }} />
-                        <Card.Content style={styles.marginTopValue}>
+                        {data?.files?.map((imageItem) => {
+                            return (
+                                <Card.Cover source={{ uri: `${serverUrl()}/${imageItem.fileName}` }} resizeMode="stretch" />
+                            );
+                        })}
+                        <Card.Content style={data?.files?.length ? styles.marginTopValue : null}>
                             <Text variant="titleLarge">{data?.title}</Text>
                             <Text variant="bodyMedium">{data?.body}</Text>
                         </Card.Content>
