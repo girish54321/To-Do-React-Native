@@ -20,16 +20,21 @@ import AppStatusBar from '../components/appStatusBar/appStatusBar';
 import { APP_CONST, Colors } from '../Config/Colors';
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 import '../localization';
+import { useProfileQuery } from '../Network/Querys/useLoginMutaion';
 
 export const Navigation: FC = () => {
     const themData: DARK_THEME_TYPE = useAppSelector((state: any) => state.themeReducer);
 
     const authDispatch = useAppDispatch();
     const authState = useAppSelector((state: any) => state.authReducer);
+    const { } = useProfileQuery();
 
-    const onLoadChecks = () => {
-        //@ts-ignore
-        authDispatch(themSlice.actions.checkThemAction());
+    const onLoadChecks = async () => {
+        const them = await AsyncStorage.getItem(APP_CONST.CHECK_THEME);
+        if (them) {
+            const jsonThem = JSON.parse(them);
+            authDispatch(themSlice.actions.checkThemAction(jsonThem.isDarkTheme));
+        }
         checkIfLoggedIn();
     };
 

@@ -15,6 +15,7 @@ export const UsersToDoScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.setOptions({ title: 'My ToDo' });
     },);
+
     if (isError) {
         //@ts-ignore
         let errorData = error?.response?.data as ErrorRes;

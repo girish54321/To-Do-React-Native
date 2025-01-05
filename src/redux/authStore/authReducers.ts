@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APP_CONST } from '../../Config/Colors';
 import { LoginRes } from '../../models/responseType/LoginRes';
 
-interface AUTH_TYPE {
+export interface AUTH_TYPE {
   isLoading: boolean;
   userLoggedIn: boolean;
   loginRes?: LoginRes | null

@@ -6,7 +6,8 @@ import { ErrorRes } from '../../models/responseType/LoginRes';
 import { useCreateToDMutation, useUpdatedateToDoMutation } from '../../Network/Querys/useToDMutation';
 import { goBack } from '../../navigation/NavigationService';
 import { Todo } from '../../models/responseType/UserListResponse';
-import { DocumentPickerResponse, pickSingle, types } from 'react-native-document-picker'
+import { DocumentPickerResponse } from 'react-native-document-picker'
+import pickSingleImage from '../../utils/filePicker';
 
 export const defaultToDoState = {
     title: '',
@@ -15,10 +16,11 @@ export const defaultToDoState = {
 };
 
 const useCreateToDo = (updateToDO?: Todo) => {
-    const [fileUri, setFileUri] = useState<DocumentPickerResponse>(null);
+    const [fileUri, setFileUri] = useState<DocumentPickerResponse | null>(null);
     const [todoData, setToDoData] = useState(updateToDO ?? defaultToDoState);
     const { mutate, isPending: isLoading } = useCreateToDMutation();
     const { mutate: updateMutate, isPending: updateLoading } = useUpdatedateToDoMutation();
+
 
     const updateToDo = () => {
         updateMutate({
@@ -38,16 +40,9 @@ const useCreateToDo = (updateToDO?: Todo) => {
     };
 
 
-    const pickSingleImage = async () => {
-        try {
-            const file = await pickSingle({
-                type: [types.images],
-            });
-            setFileUri(file);
-        } catch (error) {
-            console.log('pickSingleImage Error', error);
-        }
-
+    const pickImage = async () => {
+        const file = await pickSingleImage();
+        setFileUri(file);
     };
 
     const createToDo = async () => {
@@ -102,7 +97,7 @@ const useCreateToDo = (updateToDO?: Todo) => {
         updateToDoStatus,
         updateToDo,
         fileUri,
-        pickSingleImage,
+        pickSingleImage: pickImage,
     };
 
 };

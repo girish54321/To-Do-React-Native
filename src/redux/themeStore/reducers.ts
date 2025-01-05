@@ -11,8 +11,8 @@ const INITIAL_STATE: DARK_THEME_TYPE = {
 };
 
 const changeThemAction = (state: DARK_THEME_TYPE, action: any) => {
-  const jsonValue = JSON.stringify({ isDarkTheme: action.payload });
-  AsyncStorage.setItem(APP_CONST.CHECK_THEME, jsonValue);
+  console.log("change the", action.payload);
+
   return {
     ...state,
     isDarkTheme: action.payload,
