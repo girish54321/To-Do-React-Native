@@ -2,10 +2,10 @@
 
 import React, { useEffect } from 'react';
 import {
-    Platform,
-    KeyboardAvoidingView,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TextInput, Button, Card } from 'react-native-paper';
 import SizedBox from '../../components/SizedBox';
 import useCreateToDo from './userCreateToDoScreen';
@@ -25,6 +25,8 @@ export const CreateTodoScreen = ({ navigation }: {
         updateToDo,
         createToDo,
         updateToDoStatus,
+        fileUri,
+        pickSingleImage,
     } = useCreateToDo(data);
 
     useEffect(() => {
@@ -32,11 +34,13 @@ export const CreateTodoScreen = ({ navigation }: {
     },);
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        <KeyboardAwareScrollView
             style={styles?.rootView}
         >
             <Card style={styles.cardView}>
+                <TouchableOpacity onPress={pickSingleImage}>
+                    <Card.Cover source={fileUri?.uri ? { uri: fileUri?.uri } : require('../../assets/icons/attached-file.png')} resizeMode="center" />
+                </TouchableOpacity>
                 <TextInput
                     label="Title"
                     mode="outlined"
@@ -59,14 +63,14 @@ export const CreateTodoScreen = ({ navigation }: {
             <SizedBox size={16} />
             <ToDoStatusView state={todoData.state} updateToDoStates={updateToDoStatus} />
             <SizedBox size={16} />
-
             <Button
                 onPress={data ? updateToDo : createToDo}
                 mode="contained"
             >
                 {data ? 'Update ToDo' : 'Create ToDo'}
             </Button>
-        </KeyboardAvoidingView>
+            <SizedBox size={16} />
+        </KeyboardAwareScrollView>
     );
 };
 

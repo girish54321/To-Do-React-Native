@@ -9,3 +9,6 @@ export const delete_todo_url = 'todo/deletetodo';
 
 export const getAllToDos = 'todo/getalltodos';
 
+export const getUserProfileUrl = 'profile/user-profile';
+export const updateProfileUrl = 'profile/update-profile';
+

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { CustomNavigationBar } from '../../components/appAppBar/AppAppBar';
 import { Route } from '../../constants/Route';
 import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
+import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
 
 const SettingStack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ export const SettingScreenStack = () => {
             }}
         >
             <SettingStack.Screen name={Route.SETTINGS} component={SettingsScreen} />
+            <SettingStack.Screen name={Route.PROFILE_SCREEN} component={ProfileScreen} />
         </SettingStack.Navigator>
     );
 };

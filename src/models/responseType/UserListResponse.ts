@@ -14,4 +14,16 @@ export interface Todo {
     createdAt?: Date;
     updatedAt?: Date;
     userId?: string;
+    files?: File[];
+}
+
+export interface File {
+    fileId?: string;
+    fileName?: string;
+    fileSize?: string;
+    type?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    toDoId?: string;
+    userId?: string;
 }

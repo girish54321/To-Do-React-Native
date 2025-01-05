@@ -6,12 +6,18 @@ import { APISuccess } from '../../models/responseType/api.Success';
 import apiHeader from '../../utils/api-header';
 import { Todo } from '../../models/responseType/UserListResponse';
 import { UserToDoResponse } from '../../models/responseType/userToDoResponse';
-import { authSlice } from '../../redux/authStore/authReducers';
+// import { authSlice } from '../../redux/authStore/authReducers';
 import { useDispatch } from 'react-redux';
 
 
-const createToDo = async ({ postData }: { postData: any }) => {
-    return await axios.post<APISuccess>(`${getBaseUrl()}${create_todo_url}`, { ...postData }, await apiHeader());
+const createToDo = async ({ formData }: { formData: any }) => {
+    const authHeader = await apiHeader();
+    return await axios.post<APISuccess>(`${getBaseUrl()}${create_todo_url}`, formData, {
+        headers: {
+            ...authHeader.headers,
+            'Content-Type': 'multipart/form-data',
+        },
+    });
 };
 
 const updateToDo = async ({ postData }: { postData: Todo }) => {

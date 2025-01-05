@@ -6,6 +6,8 @@ import { ErrorRes } from '../../models/responseType/LoginRes';
 import { useCreateToDMutation, useUpdatedateToDoMutation } from '../../Network/Querys/useToDMutation';
 import { goBack } from '../../navigation/NavigationService';
 import { Todo } from '../../models/responseType/UserListResponse';
+import { DocumentPickerResponse } from 'react-native-document-picker'
+import pickSingleImage from '../../utils/filePicker';
 
 export const defaultToDoState = {
     title: '',
@@ -14,10 +16,11 @@ export const defaultToDoState = {
 };
 
 const useCreateToDo = (updateToDO?: Todo) => {
+    const [fileUri, setFileUri] = useState<DocumentPickerResponse | null>(null);
     const [todoData, setToDoData] = useState(updateToDO ?? defaultToDoState);
     const { mutate, isPending: isLoading } = useCreateToDMutation();
     const { mutate: updateMutate, isPending: updateLoading } = useUpdatedateToDoMutation();
-    console.log('updateToDO', updateToDO);
+
 
     const updateToDo = () => {
         updateMutate({
@@ -36,11 +39,22 @@ const useCreateToDo = (updateToDO?: Todo) => {
         });
     };
 
+
+    const pickImage = async () => {
+        const file = await pickSingleImage();
+        setFileUri(file);
+    };
+
     const createToDo = async () => {
+        const formData = new FormData();
+        formData.append('title', todoData?.title,);
+        formData.append('body', todoData?.body,);
+        formData.append('state', todoData?.state);
+        if (fileUri) {
+            formData.append('file', fileUri);
+        }
         mutate({
-            postData: {
-                ...todoData,
-            },
+            formData,
         }, {
             onSuccess: () => {
                 goBack();
@@ -82,6 +96,8 @@ const useCreateToDo = (updateToDO?: Todo) => {
         loading: isLoading || updateLoading,
         updateToDoStatus,
         updateToDo,
+        fileUri,
+        pickSingleImage: pickImage,
     };
 
 };
