@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, View } from 'react-native';
-import { Avatar, Card, List, Switch, Text } from 'react-native-paper';
+import { List, Switch } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { DARK_THEME_TYPE, themSlice } from '../../redux/themeStore/reducers';
 import { authSlice } from '../../redux/authStore/authReducers';
@@ -30,6 +30,11 @@ const SettingsScreen = () => {
     refetch();
   }, [])
 
+  const logOutUse = () => {
+    AsyncStorage.removeItem(APP_CONST.USER_LOGIN);
+    authDispatch(authSlice.actions.userLoginLogOutAction());
+  };
+
   const removeUser = () => {
     Alert.alert(
       'Sing Out?',
@@ -42,7 +47,7 @@ const SettingsScreen = () => {
         },
         {
           text: 'yes',
-          onPress: () => authDispatch(authSlice.actions.userLoginLogOutAction()),
+          onPress: () => logOutUse(),
         },
       ],
       { cancelable: false },
@@ -50,6 +55,12 @@ const SettingsScreen = () => {
   };
 
   const goToProfile = () => navigate(Route.PROFILE_SCREEN);
+
+  const switchButton = () => <Switch value={data.isDarkTheme} onValueChange={toggleSwitch} />;
+
+  const themIcon = (props: any) => <List.Icon {...props} icon="theme-light-dark" />;
+
+  const exitButton = (props: any) => <List.Icon {...props} icon="exit-to-app" />;
 
   return (
     <AppView>
@@ -66,16 +77,14 @@ const SettingsScreen = () => {
           }}
           title={t('darkLightMode')}
           description={t('changeAppTheme')}
-          left={props => <List.Icon {...props} icon='theme-light-dark' />}
-          right={() => (
-            <Switch value={data.isDarkTheme} onValueChange={toggleSwitch} />
-          )}
+          left={themIcon}
+          right={switchButton}
         />
         <List.Item
           onPress={removeUser}
           title={t('logOut')}
           description={t('singOut')}
-          left={(props) => <List.Icon {...props} icon='exit-to-app' />}
+          left={exitButton}
         />
       </View>
     </AppView>

@@ -3,11 +3,11 @@ const Flavor = NativeModules.RNConfigModule;
 
 export function getBaseUrl() {
     // return `${Flavor.BASE_URL}api/v1/`;
-    return 'http://192.168.0.104:2000/api/v1/';
+    return 'http://192.168.0.116:2000/api/v1/';
 }
 
 export function serverUrl() {
-    return 'http://192.168.0.104:2000';
+    return 'http://192.168.0.116:2000';
 
 }
 

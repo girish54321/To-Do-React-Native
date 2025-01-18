@@ -1,6 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { APP_CONST } from '../../Config/Colors';
 import { LoginRes } from '../../models/responseType/LoginRes';
 
 export interface AUTH_TYPE {
@@ -21,8 +19,6 @@ export const authSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     userLoginAction: (state, action: PayloadAction<AUTH_TYPE>) => {
-      const jsonValue = JSON.stringify(action.payload);
-      AsyncStorage.setItem(APP_CONST.USER_LOGIN, jsonValue);
       return { ...state, ...action.payload };
     },
     checkUserLoginAction: (state, action: PayloadAction<AUTH_TYPE | null>) => {
@@ -33,7 +29,6 @@ export const authSlice = createSlice({
       };
     },
     userLoginLogOutAction: (state) => {
-      AsyncStorage.removeItem(APP_CONST.USER_LOGIN);
       return {
         ...state,
         isLoading: false,
