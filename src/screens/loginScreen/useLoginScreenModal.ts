@@ -37,11 +37,14 @@ const useLoginScreenModal = () => {
         action({ postData: userData }, {
             onSuccess: async (data) => {
                 await AsyncStorage.setItem(APP_CONST.TOKENS, data.data.accessToken ?? '');
-                authDispatch(authSlice.actions.userLoginAction({
+                const payload = {
                     isLoading: false,
                     userLoggedIn: true,
                     loginRes: data.data,
-                }));
+                };
+                const jsonValue = JSON.stringify(payload);
+                AsyncStorage.setItem(APP_CONST.USER_LOGIN, jsonValue);
+                authDispatch(authSlice.actions.userLoginAction(payload));
             },
             onError: (error) => {
                 //@ts-ignore
