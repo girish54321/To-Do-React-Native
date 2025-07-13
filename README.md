@@ -38,13 +38,13 @@ Prerequisites
 Clone the project
 
 ```bash
-  git clone https://github.com/girish54321/react-native-typescript-starter.git
+  https://github.com/girish54321/To-Do-React-Native.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd react-native-starter
+  cd To-Do-React-Native
 ```
 
 Install dependencies
